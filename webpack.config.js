@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const isProd = process.env.NODE_ENV === 'production';
 
 const BABEL_CONF = {
@@ -36,18 +38,29 @@ module.exports = {
     filename: '[name].js',
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /.jsx|js?$/,
+        test: /\.js$/,
         exclude: /node_modules/,
-        loader: [
+        use: [
           'react-hot-loader/webpack',
           `babel-loader?${JSON.stringify(BABEL_CONF)}`,
         ],
       },
+      {
+        test: /\.styl$/,
+        use: ['css-hot-loader'].concat(
+          ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader!stylus-loader',
+          })
+        ),
+      },
     ],
   },
-  plugins: plugins.concat([]),
+  plugins: plugins.concat([
+    new ExtractTextPlugin('styles.css'),
+  ]),
   devServer: {
     host: 'localhost',
     port: 8080,
