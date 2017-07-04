@@ -7,7 +7,7 @@ import App from './components/App/App';
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Component initState={window.INIT_STATE} />
     </AppContainer>,
     document.getElementById('app')
   );

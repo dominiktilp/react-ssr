@@ -7,7 +7,6 @@ class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = props.initState || {};
-    console.log('state', this.state);
     if (typeof window !== 'undefined') {
       Detail.fetchData(this.setState.bind(this));
     }

@@ -44,6 +44,7 @@ app.route('/')
         // Send the rendered page back to the client      
         res.render('index.ejs', {
           html,
+          initState,
         });
       })      
     });
