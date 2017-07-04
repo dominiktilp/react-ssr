@@ -4,7 +4,7 @@
   "description": "",
   "main": "browser.js",
   "scripts": {
-    "start": "BABEL_ENV=node node ./node.js",
+    "start": "BABEL_ENV=node node --debug=12345 ./node.js",
     "start:prod": "NODE_ENV=production node ./dist/index.server.js",
     "build:prod": "npm run clean && npm run build:server && npm run build:client",
     "build:server": "BABEL_ENV=node NODE_ENV=production babel src -s -D -d dist --ignore spec.js,test.js",

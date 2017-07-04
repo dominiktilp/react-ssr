@@ -10,11 +10,15 @@ class App extends Component {
       <div>
         <Header />
         <h1>This is SSR App.</h1>
-        <Detail />
+        <Detail initState={this.props.initState} />
       </div>
     );
   }
 
 }
+
+App.fetchData = function appFetchData() {
+  return Detail.fetchData();
+};
 
 export default App;

@@ -29,26 +29,23 @@ app.use(express.static(webpackConfig.output.path, { index: false }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
+GLOBAL.env = 'node';
 
 app.route('/')
-    .get((req, res) => {
-      // Render the component to a string
-      const html = renderToString(
-        <AppContainer>
-          <App />
-        </AppContainer>
-      );
+    .get((req, res) => {      
+      return App.fetchData().then((initState) => {
+        console.log('[fetchData result]', initState);
+        const html = renderToString(
+          <AppContainer>
+            <App initState={initState} />
+          </AppContainer>
+        );
 
-      // Send the rendered page back to the client      
-      res.render('index.ejs', {
-        html,
-      });
-    });
-
-app.route('/api/test')
-    .get((req, res) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify({ name: 'SSR test' }));
+        // Send the rendered page back to the client      
+        res.render('index.ejs', {
+          html,
+        });
+      })      
     });
 
 
